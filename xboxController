@@ -1,0 +1,134 @@
+package org.usfirst.frc.team5903.robot;
+
+//import edu.wpi.first.wpilibj.buttons.Button;
+
+//import org.usfirst.frc.team5903.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.DriverStation;
+
+/**
+ * This class is the glue that binds the controls on the physical operator
+ * interface to the commands and command groups that allow control of the robot.
+ */
+public class XBoxController {
+
+    private DriverStation _ds;
+    private final int _port;
+
+    public XBoxController(int port) {
+        _ds = DriverStation.getInstance();
+        _port = port;
+    }
+
+    public double getRawAxis(final int axis) {
+    	
+        return _ds.getStickAxis(_port, axis);
+    }
+
+    public boolean getRawButton(final int button) {
+        return ((0x1 << (button - 1)) & _ds.getStickButtons(_port)) != 0;
+    }
+
+    /**
+     * Warning! getRightTrigger() and getLeftTrigger() both use getRawAxis(3).
+     * As getRawAxis(3) goes below zero, getRightTrigger() increases, and as
+     * getRawAxis(3) goes above zero, getLeftTrigger() increases. If both
+     * triggers are pressed, both of them will be treated as zero. You can only
+     * use one trigger at a time.
+     *
+     * @return
+     */
+    public double getRightTrigger() {
+        return -Math.min(getRawAxis(3), 0);
+    }
+
+    public double getLeftTrigger() {
+        return Math.max(getRawAxis(3), 0);
+    }
+
+    public double getRightJoyX() {
+        return getRawAxis(4);
+    }
+
+    public double getRightJoyY() {
+        return getRawAxis(5);
+    }
+
+    public double getLeftJoyX() {
+        return getRawAxis(1);
+    }
+
+    public double getLeftJoyY() {
+        return getRawAxis(2);
+    }
+
+    public boolean getButtonA() {
+        return getRawButton(1);
+    }
+
+    public boolean getButtonB() {
+        return getRawButton(2);
+    }
+
+    public boolean getButtonX() {
+        return getRawButton(3);
+    }
+
+    public boolean getButtonY() {
+        return getRawButton(4);
+    }
+
+    public boolean getButtonBack() {
+        return getRawButton(7);
+    }
+
+    public boolean getButtonStart() {
+        return getRawButton(8);
+    }
+
+    public boolean getButtonRB() {
+        return getRawButton(6);
+    }
+
+    public boolean getButtonLB() {
+        return getRawButton(5);
+    }
+
+    public boolean getButtonLS() {
+        return getRawButton(9);
+    }
+
+    public boolean getButtonRS() {
+        return getRawButton(10);
+    }
+
+
+//public class OI {
+	//// CREATING BUTTONS
+	// One type of button is a joystick button which is any button on a
+	//// joystick.
+	// You create one by telling it which joystick it's on and which button
+	// number it is.
+	//Joystick stick = new Joystick(port);
+	//Button button = new JoystickButton(stick, buttonNumber);
+
+	// There are a few additional built in buttons you can use. Additionally,
+	// by subclassing Button you can create custom triggers and bind those to
+	// commands the same as any other Button.
+
+	//// TRIGGERING COMMANDS WITH BUTTONS
+	// Once you have a button, it's trivial to bind it to a button in one of
+	// three ways:
+
+	// Start the command when the button is pressed and let it run the command
+	// until it is finished as determined by it's isFinished method.
+	// button.whenPressed(new ExampleCommand());
+
+	// Run the command while the button is being held down and interrupt it once
+	// the button is released.
+	//button.whileHeld(new ExampleCommand());
+
+	// Start the command when the button is released and let it run the command
+	// until it is finished as determined by it's isFinished method.
+	//button.whenReleased(new ExampleCommand());
+}
+
